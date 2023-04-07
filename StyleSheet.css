@@ -117,6 +117,45 @@ p1seedconvertdiv {
     margin-top: 1%;
 }
 
+p1variedupgrades {
+    text-align: center;
+    display: none;
+    left: 0%;
+    right: 0%;
+    height: auto;
+    margin-top: 5%;
+}
+
+.p1standardupgrade {
+    z-index: 10;
+    display: block;
+    max-width: 100%;
+    top: 0%;
+    left: 0%;
+    right: 0%;
+    text-align: center;
+    height: auto;
+    margin-top: 1%;
+}
+
+p1autoseed {
+    text-align: center;
+    display: none;
+    left: 0%;
+    right: 0%;
+    height: auto;
+    margin-top: 5%;
+}
+
+p1autoseedbot{
+    text-align: center;
+    display: none;
+    left: 0%;
+    right: 0%;
+    height: auto;
+    margin-top: 5%;
+}
+
 
 
 

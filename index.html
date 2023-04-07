@@ -10,7 +10,7 @@
 
 </head>
 
-<nophase style="display: none">
+<nophase style="display: non ">
 
     <button class="button buttonblue" style="right: 0px; bottom: 50px; max-width: 200px;" id="button2" onclick="seedAdd()">no way a watermelon (seed) button</button>
     <button class="button buttongreen" style="right: 0px; bottom: 0px; max-width: 200px;" id="testvisbutton" onclick="toggleVisibilityPhase2()">testvisbutton</button>
@@ -107,15 +107,27 @@
         <p1upgrades>
 
             <script>
-                function p1checkwatermelonmilestone() {
+                function p1checkwatermelonmilestone0() {
                   if (watermelon.gte(10)) {
                     var div = document.getElementById("p1melonharvestbotdiv")
                     div.style.display = "block"
-                    clearInterval(p1milestonecheck0intervalId) // Stop the loop
+                    clearInterval(p1milestonecheck0intervalId)
                   }
                 }
                 
-                const p1milestonecheck0intervalId = setInterval(p1checkwatermelonmilestone, 1000) // Check every second
+                const p1milestonecheck0intervalId = setInterval(p1checkwatermelonmilestone0, 1000)
+
+                function p1checkwatermelonmilestone1() {
+                  if (watermelon.gte(25)) {
+                    var div2 = document.getElementById("p1autoseedbot")
+                    div2.style.display = "block"
+                    var div3 = document.getElementById("p1variedupgrades")
+                    div3.style.display = "block"
+                    clearInterval(p1milestonecheck1intervalId)
+                  }
+                }
+                
+                const p1milestonecheck1intervalId = setInterval(p1checkwatermelonmilestone1, 1000)
             </script>
             
             <p1melonharvestbot id="p1melonharvestbotdiv">
@@ -164,7 +176,7 @@
 
                   let botharvestintervalid;
 
-                  function p1startbotharvest() { console.log('yes it is running')
+                  function p1startbotharvest() {
                     botharvestintervalid = setInterval(() => {
                       for (let i = 1; i <= p1botnum; i++) {
                         window['melonplant' + i]();
@@ -189,7 +201,85 @@
 
                 </script>
             </p1melonharvestbot>
+
+
+          <p1autoseedbot id="p1autoseedbot">
+
+            Seed Convertion Bot Price: 50 Watermelons
+            <p1seedconvertbot class="p1standardupgrade">
+              <button onclick="p1seedbotpurchased()">Purchase</button>
+            </p1seedconvertbot>
+            <script>
+              function p1seedbotpurchased(){
+                if(watermelon.gte(50)){
+                  watermelon = watermelon.sub(50) ; document.getElementById('watermelon').innerHTML = watermelon.toString()
+                  document.getElementById("p1autoseedbot").style="display: none"
+                  document.getElementById("p1autoseed").style="display: block"
+                }
+              }
+            </script>
+
+
+
+          </p1autoseedbot>
+          
+          <p1autoseed id="p1autoseed">
             
+            
+            Auto convert Watermelons to Seeds?
+            <p1seedautoconvertdiv class="p1standardupgrade">
+              <label for="p1seedautoconvertrate">Watermelons to convert every 10 seconds:</label>
+              <input type="number" id="p1seedautoconvertrate">
+              <button id="p1seedinitiatebutton" onclick="p1seedautoinitiate()">Start</button>
+            </p1seedautoconvertdiv>
+
+            <script>
+                
+              function p1seedautoconvert() {
+
+                var p1seedautoconvertrate0 = ExpantaNum(document.getElementById("p1seedautoconvertrate").value)
+                if(p1seedautoconvertrate0 > 0 && p1seedautoconvertrate0 % 1 === 0){
+                  if(ExpantaNum.gte(watermelon,p1seedautoconvertrate0)){
+                    watermelon = watermelon.sub(p1seedautoconvertrate0) ; document.getElementById('watermelon').innerHTML = watermelon.toString()
+                    seed = seed.add(ExpantaNum.mul(p1seedautoconvertrate0, 5)) ; document.getElementById('seed').innerHTML = seed
+                  }
+                }
+              }
+                
+              function p1seedautoinitiate(){
+                let p1seedautointervalid= setInterval(p1seedautoconvert, 10000)
+                document.getElementById("p1seedinitiatebutton").style="display: none"
+              }
+
+
+
+            </script>
+
+
+
+          </p1autoseed>
+
+
+
+
+
+
+          <p1variedupgrades id="p1variedupgrades">
+
+            <p1soilupgrade class="p1standardupgrade">
+
+              
+
+            </p1soilupgrade>
+
+            <p1waterupgrade class="p1standardupgrade">
+
+
+
+            </p1waterupgrade>
+
+
+          </p1variedupgrades>
 
 
 
@@ -491,51 +581,28 @@
             </script>
         </watermelonplant9>
         
-
-
-
-
-
     </p1field>
-
-
-
 
 </phase1>
 
 <phase2 id="phase2">
 
-    <watermelon> You have <strong><span id="watermelon" style="font-family: monospace; font-size: 1.3em;">1</span></strong> <span id="watermelonplural">Watermelon</span></watermelon>
-
-    
-
-    <right id="right">
-        <testchoice>
-            <testimage class="rightimage" style="background-image: url(artwork/TreeUpscaled.png); " ></testimage>
-        </testchoice>
-    </right>
-
     <script>
 
-
-
-
-
-        
-
-
         function toggleVisibilityPhase2() {
-            var div = document.getElementById("phase2");
-            if (div.style.display === "block") {
-                div.style.display = "none";
-            } else {
-                div.style.display = "block";
-            }
+          var div = document.getElementById("phase2");
+          if (div.style.display === "block") {
+              div.style.display = "none";
+          } else {
+              div.style.display = "block";
+          }
         }
 
     </script>
 
 </phase2>
+
+
 
 
 
