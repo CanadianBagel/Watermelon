@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <link rel="stylesheet" href="StyleSheet.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/expanta"></script>
+    <script src="ticker.js"></script>
+
+
+</head>
+
+<nophase>
+
+    <button class="button buttonblue" style="right: 0px; bottom: 50px; max-width: 200px;" id="button2" onclick="seedAdd()">no way a watermelon (seed) button</button>
+    <button class="button buttongreen" style="right: 0px; bottom: 0px; max-width: 200px;" id="testvisbutton" onclick="toggleVisibilityPhase2()">testvisbutton</button>
+    <button class="button buttonblue" style="right: 0px; bottom: 120px; max-width: 200px;" id="button3" onclick="watermelonAdd()">no way a watermelon button</button>
+
+    <script>
+        
+        var watermelon = ExpantaNum("0");
+        var seed = ExpantaNum("1");
+
+        setInterval(() => {
+            let watermelonplural = watermelon == "1" ? "Watermelon" : "Watermelons"
+            document.getElementById("watermelonplural").innerHTML = watermelonplural
+        }, 100)
+
+        setInterval(() => {
+            let seedplural = seed == "1" ? "Watermelon Seed" : "Watermelon Seeds"
+            document.getElementById("seedplural").innerHTML = seedplural
+        }, 100)
+
+        function watermelonAdd(){watermelon = ExpantaNum.add(watermelon,1); document.getElementById("watermelon").innerHTML = watermelon}
+        function seedAdd(){seed = ExpantaNum.add(seed,1); document.getElementById("seed").innerHTML = seed}
+
+    </script>
+
+    <div id="ticker-box">
+        <ul>
+            <li>1</li>
+        </ul>
+    </div>
+    
+    <script>startTicker('ticker-box', { speed: 10, delay: 250, rotate: true });</script>
+    
+</nophase>
+
+<phase1 id ="phase1">
+    <p1left>
+
+        <p1itemcount>
+            <p1watermelon>
+                You have <strong><span id="watermelon" style="font-family: monospace; font-size: 1.3em;">0</span></strong> <span id="watermelonplural">Watermelons</span>
+            </p1watermelon>
+
+            <p1seed>
+                You have <strong><span id="seed" style="font-family: monospace; font-size: 1.3em;">1</span></strong> <span id="seedplural">Watermelon Seed</span>
+            </p1seed>
+
+        </p1itemcount>
+
+        <p1seedconvert>
+            Convert Watermelon to Seeds? 1 Watermelon = <span id="p1seedconvertnum">5</span> Seeds.
+            <label for="p1seedconvertrate">Watermelons to convert:</label>
+            <input type="number" id="p1seedconvertrate">
+            <button onclick="p1seedconvert()">Convert</button>
+            <script>
+
+                p1seedconvertnum = 5;
+          
+                function p1seedconvert() {
+                    const inputValue = document.getElementById("p1seedconvertrate").value;
+                    const parsedValue = parseInt(inputValue);
+
+                    if (isNaN(parsedValue) || parsedValue <= 0 || parsedValue % 1 !== 0) {
+                        alert("Please enter a positive whole number.");
+                        return;
+                    }
+
+                    const p1seedconvertrate = ExpantaNum(inputValue);
+
+                    if (watermelon.gte(p1seedconvertrate)) {
+                        seed = seed.add(p1seedconvertrate.mul(p1seedconvertnum)); 
+                        document.getElementById("seed").innerHTML = seed.toString();
+                        watermelon = watermelon.sub(p1seedconvertrate); 
+                        document.getElementById("watermelon").innerHTML = watermelon.toString();
+                    } else {
+                        const seedsToAdd = watermelon.mul(p1seedconvertnum);
+                        seed = seed.add(seedsToAdd); 
+                        document.getElementById("seed").innerHTML = seed.toString();
+                        alert(`You converted ${seedsToAdd.toString()} Seeds because you had only ${watermelon.toString()} Watermelons.`);
+                        watermelon = ExpantaNum(0); 
+                        document.getElementById("watermelon").innerHTML = watermelon.toString();
+                    }
+                }
+
+
+
+            </script>
+        </p1seedconvert>
+          
+        <p1upgrades>
+
+            <script>
+                function p1checkwatermelonmilestone() {
+                  if (watermelon.gte(10)) {
+                    var div = document.getElementById("p1melonharvestbotdiv");
+                    div.style.display = "block"
+                    clearInterval(p1milestonecheck0intervalId); // Stop the loop
+                  }
+                }
+                
+                const p1milestonecheck0intervalId = setInterval(p1checkwatermelonmilestone, 1000); // Check every second
+            </script>
+            
+            <p1melonharvestbot id="p1melonharvestbotdiv">
+                <p1mhb0>
+                    You have <strong><span id="p1botnum" style="font-family: monospace; font-size: 1.3em;">0</span></strong> <span id="p1botplural">Watermelon Harvest Bots</span>
+                </p1mhb0>
+            
+                <p1mhb0>
+                    Each Bot will automatically harvest or plant every <strong><span id="p1mbt">10000</span></strong> Milliseconds
+                </p1mhb0>
+            
+                <p1mhb0>
+                    <label for="p1botpurchase">Bot Price: <strong><span id="p1botprice">10</span></strong> Watermelons</label>
+                    <button onclick="p1botpurchase()" id="p1botpurchase">Purchase</button>
+                </p1mhb0>
+            
+                <script>
+                    let p1botnum = 0;
+                    let p1botprice = 10;
+            
+                    function p1botpurchase(){
+                        watermelon = watermelon.sub(p1botprice);
+                        p1botnum += 1;
+                        p1botprice += Math.ceil(p1botprice / 2);
+                        document.getElementById("watermelon").innerHTML = watermelon.toString();
+                        document.getElementById("p1botnum").innerHTML = p1botnum.toString();
+                        document.getElementById("p1botprice").innerHTML = p1botprice.toString();
+                        document.getElementById("p1botplural").innerHTML = p1botnum === 1 ? "Watermelon Harvest Bot" : "Watermelon Harvest Bots";
+                    }
+                </script>
+            </p1melonharvestbot>
+            
+
+
+
+        </p1upgrades>
+          
+
+
+
+
+    </p1left>
+    
+    <p1field>
+        <script>
+
+            const p1URL0 = "url('artwork/p1watermelonplant0.png')";
+            const p1URL1 = "url('artwork/p1watermelonplant1.png')";
+            const p1URL2 = "url('artwork/p1watermelonplant2.png')";
+            const p1URL3 = "url('artwork/p1watermelonplant3.png')";
+            var p1gt ="4000"
+
+        </script>
+
+        <watermelonplant1 class="p1watermelonplant" style="top: 5.0%; left: 15.5%;" id="p1watermelonplant1" onclick="melonplant1()">
+            <script>
+                var plantphase1 = ExpantaNum("1")
+                function melonplant1() {
+                  if (plantphase1.eq(1)) {
+                    if(seed.gt(0)){
+                        seed = seed.sub(1);
+                        plantphase1 = plantphase1.add(1);
+                        document.getElementById("seed").innerHTML = seed;
+                        document.getElementById("p1watermelonplant1").style.backgroundImage = p1URL1
+                        setTimeout(() => {
+                            document.getElementById("p1watermelonplant1").style.backgroundImage = p1URL2
+                            plantphase1 = plantphase1.add(1)
+                            setTimeout(() => {
+                                document.getElementById("p1watermelonplant1").style.backgroundImage = p1URL3
+                                plantphase1 = plantphase1.add(1)
+                            }, p1gt);
+                        }, p1gt);
+                    }
+                  }
+                  if(plantphase1.eq(4)) {
+                    document.getElementById("p1watermelonplant1").style.backgroundImage = p1URL0
+                    watermelon= watermelon.add(1)
+                    plantphase1 = ExpantaNum("1")
+                    document.getElementById("watermelon").innerHTML = watermelon
+                    document.getElementById("watermelonplural").innerHTML = watermelon.eq(1) ? "Watermelon" : "Watermelons";
+                  }
+                }
+            </script>
+        </watermelonplant1>
+
+        <watermelonplant2 class="p1watermelonplant" style="top: 36.5%; left: 15.5%;" id="p1watermelonplant2" onclick="melonplant2()">
+            <script>
+                var plantphase2 = ExpantaNum("1");
+                function melonplant2() {
+                    if (plantphase2.eq(1)) {
+                        if(seed.gt(0)){
+                            seed = seed.sub(1);
+                            plantphase2 = plantphase2.add(1);
+                            document.getElementById("seed").innerHTML = seed;
+                            document.getElementById("p1watermelonplant2").style.backgroundImage = p1URL1;
+                            setTimeout(() => {
+                                document.getElementById("p1watermelonplant2").style.backgroundImage = p1URL2;
+                                plantphase2 = plantphase2.add(1);
+                                setTimeout(() => {
+                                    document.getElementById("p1watermelonplant2").style.backgroundImage = p1URL3;
+                                    plantphase2 = plantphase2.add(1);
+                                }, p1gt);
+                            }, p1gt);
+                        }
+                    }
+                    if(plantphase2.eq(4)) {
+                        document.getElementById("p1watermelonplant2").style.backgroundImage = p1URL0;
+                        watermelon = watermelon.add(1);
+                        plantphase2 = ExpantaNum("1");
+                        document.getElementById("watermelon").innerHTML = watermelon;
+                        document.getElementById("watermelonplural").innerHTML = watermelon.eq(1) ? "Watermelon" : "Watermelons";
+                    }
+                }
+            </script>
+        </watermelonplant2>
+        
+        <watermelonplant3 class="p1watermelonplant" style="bottom: 5.0%; left: 15.5%;" id="p1watermelonplant3" onclick="melonplant3()">
+            <script>
+              var plantphase3 = ExpantaNum("1");
+              function melonplant3() {
+                if (plantphase3.eq(1)) {
+                  if (seed.gt(0)) {
+                    seed = seed.sub(1);
+                    plantphase3 = plantphase3.add(1);
+                    document.getElementById("seed").innerHTML = seed;
+                    document.getElementById("p1watermelonplant3").style.backgroundImage = p1URL1;
+                    setTimeout(() => {
+                      document.getElementById("p1watermelonplant3").style.backgroundImage = p1URL2;
+                      plantphase3 = plantphase3.add(1);
+                      setTimeout(() => {
+                        document.getElementById("p1watermelonplant3").style.backgroundImage = p1URL3;
+                        plantphase3 = plantphase3.add(1);
+                      }, p1gt);
+                    }, p1gt);
+                  }
+                }
+                if (plantphase3.eq(4)) {
+                  document.getElementById("p1watermelonplant3").style.backgroundImage = p1URL0;
+                  watermelon = watermelon.add(1);
+                  plantphase3 = ExpantaNum("1");
+                  document.getElementById("watermelon").innerHTML = watermelon;
+                  document.getElementById("watermelonplural").innerHTML = watermelon.eq(1) ? "Watermelon" : "Watermelons";
+                }
+              }
+            </script>
+        </watermelonplant3>
+
+        <watermelonplant4 class="p1watermelonplant" style="top: 5.0%; left: 40.0%;" id="p1watermelonplant4" onclick="melonplant4()">
+            <script>
+              var plantphase4 = ExpantaNum("1");
+              function melonplant4() {
+                if (plantphase4.eq(1)) {
+                  if (seed.gt(0)) {
+                    seed = seed.sub(1);
+                    plantphase4 = plantphase4.add(1);
+                    document.getElementById("seed").innerHTML = seed;
+                    document.getElementById("p1watermelonplant4").style.backgroundImage = p1URL1;
+                    setTimeout(() => {
+                      document.getElementById("p1watermelonplant4").style.backgroundImage = p1URL2;
+                      plantphase4 = plantphase4.add(1);
+                      setTimeout(() => {
+                        document.getElementById("p1watermelonplant4").style.backgroundImage = p1URL3;
+                        plantphase4 = plantphase4.add(1);
+                      }, p1gt);
+                    }, p1gt);
+                  }
+                }
+                if (plantphase4.eq(4)) {
+                  document.getElementById("p1watermelonplant4").style.backgroundImage = p1URL0;
+                  watermelon = watermelon.add(1);
+                  plantphase4 = ExpantaNum("1");
+                  document.getElementById("watermelon").innerHTML = watermelon;
+                  document.getElementById("watermelonplural").innerHTML = watermelon.eq(1) ? "Watermelon" : "Watermelons";
+                }
+              }
+            </script>
+        </watermelonplant4>
+          
+        <watermelonplant5 class="p1watermelonplant" style="top: 36.5%; left: 40.0%;" id="p1watermelonplant5" onclick="melonplant5()">
+            <script>
+              var plantphase5 = ExpantaNum("1");
+              function melonplant5() {
+                if (plantphase5.eq(1)) {
+                  if(seed.gt(0)){
+                    seed = seed.sub(1);
+                    plantphase5 = plantphase5.add(1);
+                    document.getElementById("seed").innerHTML = seed;
+                    document.getElementById("p1watermelonplant5").style.backgroundImage = p1URL1;
+                    setTimeout(() => {
+                      document.getElementById("p1watermelonplant5").style.backgroundImage = p1URL2;
+                      plantphase5 = plantphase5.add(1);
+                      setTimeout(() => {
+                        document.getElementById("p1watermelonplant5").style.backgroundImage = p1URL3;
+                        plantphase5 = plantphase5.add(1);
+                      }, p1gt);
+                    }, p1gt);
+                  }
+                }
+                if(plantphase5.eq(4)) {
+                  document.getElementById("p1watermelonplant5").style.backgroundImage = p1URL0;
+                  watermelon = watermelon.add(1);
+                  plantphase5 = ExpantaNum("1");
+                  document.getElementById("watermelon").innerHTML = watermelon;
+                  document.getElementById("watermelonplural").innerHTML = watermelon.eq(1) ? "Watermelon" : "Watermelons";
+                }
+              }
+            </script>
+        </watermelonplant5>
+          
+        <watermelonplant6 class="p1watermelonplant" style="bottom: 5.0%; left: 40.0%;" id="p1watermelonplant6" onclick="melonplant6()">
+            <script>
+                var plantphase6 = ExpantaNum("1")
+                function melonplant6() {
+                  if (plantphase6.eq(1)) {
+                    if(seed.gt(0)){
+                        seed = seed.sub(1);
+                        plantphase6 = plantphase6.add(1);
+                        document.getElementById("seed").innerHTML = seed;
+                        document.getElementById("p1watermelonplant6").style.backgroundImage = p1URL1
+                        setTimeout(() => {
+                            document.getElementById("p1watermelonplant6").style.backgroundImage = p1URL2
+                            plantphase6 = plantphase6.add(1)
+                            setTimeout(() => {
+                                document.getElementById("p1watermelonplant6").style.backgroundImage = p1URL3
+                                plantphase6 = plantphase6.add(1)
+                            }, p1gt);
+                        }, p1gt);
+                    }
+                  }
+                  if(plantphase6.eq(4)) {
+                    document.getElementById("p1watermelonplant6").style.backgroundImage = p1URL0
+                    watermelon= watermelon.add(1)
+                    plantphase6 = ExpantaNum("1")
+                    document.getElementById("watermelon").innerHTML = watermelon
+                    document.getElementById("watermelonplural").innerHTML = watermelon.eq(1) ? "Watermelon" : "Watermelons";
+                  }
+                }
+            </script>
+        </watermelonplant6>
+
+        <watermelonplant7 class="p1watermelonplant" style="top: 5.0%; right: 15%;" id="p1watermelonplant7" onclick="melonplant7()">
+            <script>
+                var plantphase7 = ExpantaNum("1")
+                function melonplant7() {
+                  if (plantphase7.eq(1)) {
+                    if(seed.gt(0)){
+                        seed = seed.sub(1);
+                        plantphase7 = plantphase7.add(1);
+                        document.getElementById("seed").innerHTML = seed;
+                        document.getElementById("p1watermelonplant7").style.backgroundImage = p1URL1
+                        setTimeout(() => {
+                            document.getElementById("p1watermelonplant7").style.backgroundImage = p1URL2
+                            plantphase7 = plantphase7.add(1)
+                            setTimeout(() => {
+                                document.getElementById("p1watermelonplant7").style.backgroundImage = p1URL3
+                                plantphase7 = plantphase7.add(1)
+                            }, p1gt);
+                        }, p1gt);
+                    }
+                  }
+                  if(plantphase7.eq(4)) {
+                    document.getElementById("p1watermelonplant7").style.backgroundImage = p1URL0
+                    watermelon= watermelon.add(1)
+                    plantphase7 = ExpantaNum("1")
+                    document.getElementById("watermelon").innerHTML = watermelon
+                    document.getElementById("watermelonplural").innerHTML = watermelon.eq(1) ? "Watermelon" : "Watermelons";
+                  }
+                }
+            </script>
+        </watermelonplant7>
+
+        <watermelonplant8 class="p1watermelonplant" style="top: 36.5%; right: 15%;" id="p1watermelonplant8" onclick="melonplant8()">
+            <script>
+              var plantphase8 = ExpantaNum("1")
+              function melonplant8() {
+                if (plantphase8.eq(1)) {
+                  if(seed.gt(0)){
+                    seed = seed.sub(1);
+                    plantphase8 = plantphase8.add(1);
+                    document.getElementById("seed").innerHTML = seed;
+                    document.getElementById("p1watermelonplant8").style.backgroundImage = p1URL1
+                    setTimeout(() => {
+                      document.getElementById("p1watermelonplant8").style.backgroundImage = p1URL2
+                      plantphase8 = plantphase8.add(1)
+                      setTimeout(() => {
+                        document.getElementById("p1watermelonplant8").style.backgroundImage = p1URL3
+                        plantphase8 = plantphase8.add(1)
+                      }, p1gt);
+                    }, p1gt);
+                  }
+                }
+                if(plantphase8.eq(4)) {
+                  document.getElementById("p1watermelonplant8").style.backgroundImage = p1URL0
+                  watermelon= watermelon.add(1)
+                  plantphase8 = ExpantaNum("1")
+                  document.getElementById("watermelon").innerHTML = watermelon
+                  document.getElementById("watermelonplural").innerHTML = watermelon.eq(1) ? "Watermelon" : "Watermelons";
+                }
+              }
+            </script>
+        </watermelonplant8>
+
+        <watermelonplant9 class="p1watermelonplant" style="bottom: 5.0%; right: 15%;" id="p1watermelonplant9" onclick="melonplant9()">
+            <script>
+                var plantphase9 = ExpantaNum("1")
+                function melonplant9() {
+                  if (plantphase9.eq(1)) {
+                    if(seed.gt(0)){
+                        seed = seed.sub(1);
+                        plantphase9 = plantphase9.add(1);
+                        document.getElementById("seed").innerHTML = seed;
+                        document.getElementById("p1watermelonplant9").style.backgroundImage = p1URL1
+                        setTimeout(() => {
+                            document.getElementById("p1watermelonplant9").style.backgroundImage = p1URL2
+                            plantphase9 = plantphase9.add(1)
+                            setTimeout(() => {
+                                document.getElementById("p1watermelonplant9").style.backgroundImage = p1URL3
+                                plantphase9 = plantphase9.add(1)
+                            }, p1gt);
+                        }, p1gt);
+                    }
+                  }
+                  if(plantphase9.eq(4)) {
+                    document.getElementById("p1watermelonplant9").style.backgroundImage = p1URL0
+                    watermelon= watermelon.add(1)
+                    plantphase9 = ExpantaNum("1")
+                    document.getElementById("watermelon").innerHTML = watermelon
+                    document.getElementById("watermelonplural").innerHTML = watermelon.eq(1) ? "Watermelon" : "Watermelons";
+                  }
+                }
+            </script>
+        </watermelonplant9>
+        
+
+
+
+
+
+    </p1field>
+
+
+
+
+</phase1>
+
+<phase2 id="phase2">
+
+    <watermelon> You have <strong><span id="watermelon" style="font-family: monospace; font-size: 1.3em;">1</span></strong> <span id="watermelonplural">Watermelon</span></watermelon>
+
+    
+
+    <right id="right">
+        <testchoice>
+            <testimage class="rightimage" style="background-image: url(artwork/TreeUpscaled.png); " ></testimage>
+        </testchoice>
+    </right>
+
+    <script>
+
+
+
+
+
+        
+
+
+        function toggleVisibilityPhase2() {
+            var div = document.getElementById("phase2");
+            if (div.style.display === "block") {
+                div.style.display = "none";
+            } else {
+                div.style.display = "block";
+            }
+        }
+
+    </script>
+
+</phase2>
+
+
+
+</html>
