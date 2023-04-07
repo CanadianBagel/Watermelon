@@ -105,7 +105,17 @@ p1mhb0 {
     margin-top: 1%;
 }
 
-
+p1seedconvertdiv {
+    z-index: 10;
+    display: block;
+    max-width: 100%;
+    top: 0%;
+    left: 0%;
+    right: 0%;
+    text-align: center;
+    height: auto;
+    margin-top: 1%;
+}
 
 
 
