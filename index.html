@@ -123,24 +123,49 @@
                     Each Bot will automatically harvest or plant every <strong><span id="p1mbt">10000</span></strong> Milliseconds
                 </p1mhb0>
             
-                <p1mhb0>
+                <p1mhb0 id="p1botpurchasediv">
                     <label for="p1botpurchase">Bot Price: <strong><span id="p1botprice">10</span></strong> Watermelons</label>
                     <button onclick="p1botpurchase()" id="p1botpurchase">Purchase</button>
                 </p1mhb0>
             
                 <script>
-                    let p1botnum = 0;
-                    let p1botprice = 10;
+                  const p1mbt = 10000
+
+                  let p1botnum = 0
+                  let p1botprice = 10
             
-                    function p1botpurchase(){
-                        watermelon = watermelon.sub(p1botprice);
-                        p1botnum += 1;
-                        p1botprice += Math.ceil(p1botprice / 2);
-                        document.getElementById("watermelon").innerHTML = watermelon.toString();
-                        document.getElementById("p1botnum").innerHTML = p1botnum.toString();
-                        document.getElementById("p1botprice").innerHTML = p1botprice.toString();
-                        document.getElementById("p1botplural").innerHTML = p1botnum === 1 ? "Watermelon Harvest Bot" : "Watermelon Harvest Bots";
+                  function p1botpurchase(){
+                    if(watermelon.gte(p1botprice) && ExpantaNum.lt(p1botnum,9)){
+                      watermelon = watermelon.sub(p1botprice)
+                      p1botnum += 1
+                      p1botprice += Math.ceil(p1botprice / 2)
+                      document.getElementById("watermelon").innerHTML = watermelon.toString()
+                      document.getElementById("p1botnum").innerHTML = p1botnum.toString()
+                      document.getElementById("p1botprice").innerHTML = p1botprice.toString()
+                      document.getElementById("p1botplural").innerHTML = p1botnum === 1 ? "Watermelon Harvest Bot" : "Watermelon Harvest Bots";
+                      if(p1botnum === 9){
+                        var p1botpurchasediv = document.getElementById("p1botpurchasediv")
+                        p1botpurchasediv.style.display = "none"
+                      }
+                    } 
+                  }
+
+                  function p1botharvest(p1botnum) {
+                    for (let i = 1; i <= p1botnum; i++) {
+                      window['melonplant' + i]();
                     }
+                  }
+
+                  setInterval(() => {
+                    p1botharvest(p1botnum);
+                  }, p1mbt);
+                    
+
+
+
+
+
+
                 </script>
             </p1melonharvestbot>
             
