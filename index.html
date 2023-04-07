@@ -10,7 +10,7 @@
 
 </head>
 
-<nophase>
+<nophase style="display: none">
 
     <button class="button buttonblue" style="right: 0px; bottom: 50px; max-width: 200px;" id="button2" onclick="seedAdd()">no way a watermelon (seed) button</button>
     <button class="button buttongreen" style="right: 0px; bottom: 0px; max-width: 200px;" id="testvisbutton" onclick="toggleVisibilityPhase2()">testvisbutton</button>
@@ -127,9 +127,14 @@
                     <label for="p1botpurchase">Bot Price: <strong><span id="p1botprice">10</span></strong> Watermelons</label>
                     <button onclick="p1botpurchase()" id="p1botpurchase">Purchase</button>
                 </p1mhb0>
+
+                <p1mhb0 id="p1botupgradediv">
+                  <label for="p1botupgradepurchase">Bot Upgrade Price: <strong><span id="p1botupgradeprice">50</span></strong> Watermelons</label>
+                  <button onclick="p1botupgradepurchase()" id="p1botupgradepurchase">Purchase</button>
+                </p1mhb0>
             
                 <script>
-                  const p1mbt = 10000
+                  let p1mbt = 10000
 
                   let p1botnum = 0
                   let p1botprice = 10
@@ -147,24 +152,36 @@
                         var p1botpurchasediv = document.getElementById("p1botpurchasediv")
                         p1botpurchasediv.style.display = "none"
                       }
+                      if(p1botnum === 1){
+                        p1startbotharvest()
+                      }
                     } 
                   }
 
-                  function p1botharvest(p1botnum) {
-                    for (let i = 1; i <= p1botnum; i++) {
-                      window['melonplant' + i]();
-                    }
+                  let botharvestintervalid;
+
+                  function p1startbotharvest() { console.log('yes it is running')
+                    botharvestintervalid = setInterval(() => {
+                      for (let i = 1; i <= p1botnum; i++) {
+                        window['melonplant' + i]();
+                      }
+                    }, p1mbt);
                   }
 
-                  setInterval(() => {
-                    p1botharvest(p1botnum);
-                  }, p1mbt);
+                  function p1stopbotharvest() {
+                    clearInterval(botharvestintervalid);
+                  }
                     
+                  let p1botupgradeprice = ExpantaNum('50')
 
-
-
-
-
+                  function p1botupgradepurchase(){
+                    if(watermelon.gte(p1botupgradeprice)){
+                      watermelon = watermelon.sub(p1botupgradeprice)
+                      document.getElementById("watermelon").innerHTML = watermelon.toString()
+                      p1botupgradeprice = ExpantaNum.mul(p1botupgradeprice,1.5).ceil() ; document.getElementById("p1botupgradeprice").innerHTML = p1botupgradeprice
+                      p1mbt = ExpantaNum.mul(p1mbt,0.75).ceil() ; document.getElementById("p1mbt").innerHTML = p1mbt.toString()
+                    }
+                  } 
 
                 </script>
             </p1melonharvestbot>
