@@ -35,16 +35,17 @@
         function seedAdd(){seed = ExpantaNum.add(seed,1); document.getElementById("seed").innerHTML = seed}
 
     </script>
-
-    <div id="ticker-box">
-        <ul>
-            <li>1</li>
-        </ul>
-    </div>
     
-    <script>startTicker('ticker-box', { speed: 10, delay: 250, rotate: true });</script>
+    
     
 </nophase>
+
+<div id="ticker-box">
+  <ul>
+      <li>1</li>
+  </ul>
+  <script>startTicker('ticker-box', { speed: 10, delay: 250, rotate: true });</script>
+</div>
 
 <phase1 id ="phase1">
     <p1left>
@@ -108,13 +109,13 @@
             <script>
                 function p1checkwatermelonmilestone() {
                   if (watermelon.gte(10)) {
-                    var div = document.getElementById("p1melonharvestbotdiv");
+                    var div = document.getElementById("p1melonharvestbotdiv")
                     div.style.display = "block"
-                    clearInterval(p1milestonecheck0intervalId); // Stop the loop
+                    clearInterval(p1milestonecheck0intervalId) // Stop the loop
                   }
                 }
                 
-                const p1milestonecheck0intervalId = setInterval(p1checkwatermelonmilestone, 1000); // Check every second
+                const p1milestonecheck0intervalId = setInterval(p1checkwatermelonmilestone, 1000) // Check every second
             </script>
             
             <p1melonharvestbot id="p1melonharvestbotdiv">
@@ -150,7 +151,7 @@
                       document.getElementById("watermelon").innerHTML = watermelon.toString()
                       document.getElementById("p1botnum").innerHTML = p1botnum.toString()
                       document.getElementById("p1botprice").innerHTML = p1botprice.toString()
-                      document.getElementById("p1botplural").innerHTML = p1botnum === 1 ? "Watermelon Harvest Bot" : "Watermelon Harvest Bots";
+                      document.getElementById("p1botplural").innerHTML = p1botnum === 1 ? "Watermelon Harvest Bot" : "Watermelon Harvest Bots"
                       if(p1botnum === 9){
                         var p1botpurchasediv = document.getElementById("p1botpurchasediv")
                         p1botpurchasediv.style.display = "none"
