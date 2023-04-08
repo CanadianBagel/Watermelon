@@ -13,7 +13,6 @@
 <nophase style="display: none ">
 
     <button class="button buttonblue" style="right: 0px; bottom: 50px; max-width: 200px;" id="button2" onclick="seedAdd()">no way a watermelon (seed) button</button>
-    <button class="button buttongreen" style="right: 0px; bottom: 0px; max-width: 200px;" id="testvisbutton" onclick="toggleVisibilityPhase2()">testvisbutton</button>
     <button class="button buttonblue" style="right: 0px; bottom: 120px; max-width: 200px;" id="button3" onclick="watermelonAdd()">no way a watermelon button</button>
 
     <script>
@@ -31,8 +30,8 @@
             document.getElementById("seedplural").innerHTML = seedplural
         }, 100)
 
-        function watermelonAdd(){watermelon = ExpantaNum.add(watermelon,1); document.getElementById("watermelon").innerHTML = watermelon}
-        function seedAdd(){seed = ExpantaNum.add(seed,1); document.getElementById("seed").innerHTML = seed}
+        function watermelonAdd(){watermelon = ExpantaNum.add(watermelon,100); document.getElementById("watermelon").innerHTML = watermelon}
+        function seedAdd(){seed = ExpantaNum.add(seed,100); document.getElementById("seed").innerHTML = seed}
 
     </script>
     
@@ -40,7 +39,7 @@
     
 </nophase>
 
-<div id="ticker-box">
+<div id="ticker-box" class="ticker-box" style="background-color:lightgray">
   <ul>
       <li>1</li>
   </ul>
@@ -150,16 +149,16 @@
                 </p1mhb0>
             
                 <script>
-                  let p1mbt = 10000
+                  let p1mbt = ExpantaNum(10000)
 
                   let p1botnum = 0
-                  let p1botprice = 10
+                  let p1botprice = ExpantaNum(10)
             
                   function p1botpurchase(){
                     if(watermelon.gte(p1botprice) && ExpantaNum.lt(p1botnum,9)){
                       watermelon = watermelon.sub(p1botprice)
                       p1botnum += 1
-                      p1botprice += Math.ceil(p1botprice / 2)
+                      p1botprice = p1botprice.add(10)
                       document.getElementById("watermelon").innerHTML = watermelon.toString()
                       document.getElementById("p1botnum").innerHTML = p1botnum.toString()
                       document.getElementById("p1botprice").innerHTML = p1botprice.toString()
@@ -194,12 +193,19 @@
                     if(watermelon.gte(p1botupgradeprice)){
                       watermelon = watermelon.sub(p1botupgradeprice)
                       document.getElementById("watermelon").innerHTML = watermelon.toString()
-                      p1botupgradeprice = ExpantaNum.mul(p1botupgradeprice,1.5).ceil() ; document.getElementById("p1botupgradeprice").innerHTML = p1botupgradeprice
-                      p1mbt = ExpantaNum.mul(p1mbt,0.75).ceil() ; document.getElementById("p1mbt").innerHTML = p1mbt.toString()
+                      p1botupgradeprice = p1botupgradeprice.add(50)
+                      document.getElementById("p1botupgradeprice").innerHTML = p1botupgradeprice
+                      p1mbt = p1mbt.sub(ExpantaNum(1500))
+                      document.getElementById("p1mbt").innerHTML = p1mbt.toString()
                       p1stopbotharvest()
                       p1startbotharvest()
+                      if(p1mbt.lte(ExpantaNum(500))){
+                        p1mbt = ExpantaNum(500)
+                        document.getElementById("p1mbt").innerHTML = p1mbt.toString()
+                        document.getElementById('p1botupgradediv').style.display = 'none'
+                      }
                     }
-                  } 
+                  }
 
                 </script>
             </p1melonharvestbot>
@@ -268,22 +274,33 @@
 
           <p1variedupgrades id="p1variedupgrades">
 
-            <p1soilupgrade class="p1standardupgrade">
 
-              
+            <p1soilupgrade class="p1standardupgrade">
+              <p1soilupgradeinfo>Each Watermelon Plant tick takes <strong><span id="p1gt">4000</span></strong> Milliseconds</p1soilupgradeinfo>
+              <p1mhb0 id="p1soilupgradediv">
+                <label for="p1soilupgradediv">Soil Upgrade Price: <strong><span id="p1soilprice">25</span></strong> Watermelons</label>
+                <button onclick="p1soilpurchase()" id="p1soilpurchase">Purchase</button>
+              </p1mhb0>
+            
+              <script>
+                let p1gt = ExpantaNum(4000)
+                let p1soilprice = ExpantaNum(25)
+            
+                function p1soilpurchase() {
+                  if(watermelon.gte(p1soilprice)){
+                    watermelon = watermelon.sub(p1soilprice); document.getElementById('watermelon').innerHTML = watermelon.toNumber()
+                    p1gt = p1gt.sub(500); document.getElementById('p1gt').innerHTML = p1gt.toNumber()
+                    p1soilprice = p1soilprice.add(25); document.getElementById('p1soilprice').innerHTML = p1soilprice.toNumber()
+                    if(p1gt.lte(1000)){
+                      document.getElementById('p1soilupgradediv').style.display = 'none'
+                    }
+                  }
+                }
+              </script>
 
             </p1soilupgrade>
 
-            <p1waterupgrade class="p1standardupgrade">
-
-
-
-            </p1waterupgrade>
-
-
           </p1variedupgrades>
-
-
 
         </p1upgrades>
           
@@ -300,7 +317,6 @@
             const p1URL1 = "url('artwork/p1watermelonplant1.png')";
             const p1URL2 = "url('artwork/p1watermelonplant2.png')";
             const p1URL3 = "url('artwork/p1watermelonplant3.png')";
-            var p1gt ="4000"
 
         </script>
 
@@ -589,18 +605,7 @@
 
 <phase2 id="phase2">
 
-    <script>
-
-        function toggleVisibilityPhase2() {
-          var div = document.getElementById("phase2");
-          if (div.style.display === "block") {
-              div.style.display = "none";
-          } else {
-              div.style.display = "block";
-          }
-        }
-
-    </script>
+  
 
 </phase2>
 
