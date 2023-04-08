@@ -10,6 +10,7 @@
 
 </head>
 
+
 <nophase style="display: none ">
 
     <button class="button buttonblue" style="right: 0px; bottom: 50px; max-width: 200px;" id="button2" onclick="seedAdd()">no way a watermelon (seed) button</button>
@@ -17,25 +18,44 @@
 
     <script>
         
-        var watermelon = ExpantaNum("0");
-        var seed = ExpantaNum("1");
+      var watermelon = ExpantaNum("0");
+      var seed = ExpantaNum("1");
 
-        setInterval(() => {
-            let watermelonplural = watermelon == "1" ? "Watermelon" : "Watermelons"
-            document.getElementById("watermelonplural").innerHTML = watermelonplural
-        }, 100)
+      setInterval(() => {
+        let watermelonplural = watermelon == "1" ? "Watermelon" : "Watermelons"
+        document.getElementById("watermelonplural").innerHTML = watermelonplural
+      }, 100)
 
-        setInterval(() => {
-            let seedplural = seed == "1" ? "Watermelon Seed" : "Watermelon Seeds"
-            document.getElementById("seedplural").innerHTML = seedplural
-        }, 100)
+      setInterval(() => {
+        let seedplural = seed == "1" ? "Watermelon Seed" : "Watermelon Seeds"
+        document.getElementById("seedplural").innerHTML = seedplural
+      }, 100)
 
-        function watermelonAdd(){watermelon = ExpantaNum.add(watermelon,100); document.getElementById("watermelon").innerHTML = watermelon}
-        function seedAdd(){seed = ExpantaNum.add(seed,100); document.getElementById("seed").innerHTML = seed}
+      function watermelonAdd(){watermelon = ExpantaNum.add(watermelon,100); document.getElementById("watermelon").innerHTML = watermelon}
+      function seedAdd(){seed = ExpantaNum.add(seed,100); document.getElementById("seed").innerHTML = seed}
 
+      function fadein(element) {
+        element.style.display = 'block';
+        element.classList.add('fadein');
+      }
+
+      function fadeout(element) {
+        element.classList.add('fadeout');
+        setTimeout(() => {
+          element.style.display = 'none';
+          element.classList.remove('fadeout');
+        }, 2000);
+      }
+
+      
     </script>
+
+  <tempdiv style="z-index: 20; ">
+    <button onclick="fadeout(phase1)">fadeouttest</button>
+    <button onclick="fadein(phase1)">fadeintest</button>
+  </tempdiv>
     
-    
+
     
 </nophase>
 
@@ -46,7 +66,42 @@
   <script>startTicker('ticker-box', { speed: 10, delay: 250, rotate: true });</script>
 </div>
 
+<achievements id="achievements">
+  <achievementsmelonbackground id="achievementsmelonbackground"></achievementsmelonbackground>
+  <opaquebgone id="opaquebgone0">
+
+    <menubuttons>
+      <achievementsbutton>
+        <achievementsp1 onclick="achievementsp1unload()"></achievementsp1>
+    
+        <script>
+    
+          function achievementsp1unload(){
+            fadeout(achievements)
+            fadein(phase1)
+          }
+        </script>
+    
+      </achievementsbutton>
+    </menubuttons>
+  </opaquebgone>
+
+  
+</achievements>
+
+<tempdiv2>
+
+
+
+</tempdiv2>
+
+
 <phase1 id ="phase1">
+
+
+
+  
+
     <p1left>
 
         <p1itemcount>
@@ -146,6 +201,11 @@
                 <p1mhb0 id="p1botupgradediv">
                   <label for="p1botupgradepurchase">Bot Upgrade Price: <strong><span id="p1botupgradeprice">50</span></strong> Watermelons</label>
                   <button onclick="p1botupgradepurchase()" id="p1botupgradepurchase">Purchase</button>
+                </p1mhb0>
+
+                <p1mhb0>
+                  <button onclick="p1stopbotharvest()">Stop Bots</button>
+                  <button onclick="p1startbotharvest()">Start Bots</button>
                 </p1mhb0>
             
                 <script>
@@ -303,7 +363,26 @@
           </p1variedupgrades>
 
         </p1upgrades>
-          
+    
+
+        <menubuttons>
+          <achievementsbutton>
+            <achievementsp1 onclick="achievementsp1load()"></achievementsp1>
+        
+            <script>
+        
+              function achievementsp1load(){
+                fadeout(phase1)
+                fadein(achievements)
+              }
+            </script>
+        
+          </achievementsbutton>
+        </menubuttons>
+
+
+
+        
 
 
 
@@ -598,8 +677,8 @@
                 }
             </script>
         </watermelonplant9>
-        
-    </p1field>
+      
+  </p1field>
 
 </phase1>
 
