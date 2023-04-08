@@ -10,7 +10,7 @@
 
 </head>
 
-<nophase style="display: none ">
+<nophase style="display: non ">
 
     <button class="button buttonblue" style="right: 0px; bottom: 50px; max-width: 200px;" id="button2" onclick="seedAdd()">no way a watermelon (seed) button</button>
     <button class="button buttongreen" style="right: 0px; bottom: 0px; max-width: 200px;" id="testvisbutton" onclick="toggleVisibilityPhase2()">testvisbutton</button>
@@ -196,6 +196,8 @@
                       document.getElementById("watermelon").innerHTML = watermelon.toString()
                       p1botupgradeprice = ExpantaNum.mul(p1botupgradeprice,1.5).ceil() ; document.getElementById("p1botupgradeprice").innerHTML = p1botupgradeprice
                       p1mbt = ExpantaNum.mul(p1mbt,0.75).ceil() ; document.getElementById("p1mbt").innerHTML = p1mbt.toString()
+                      p1stopbotharvest()
+                      p1startbotharvest()
                     }
                   } 
 
