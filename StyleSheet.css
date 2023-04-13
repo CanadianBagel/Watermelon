@@ -1,19 +1,41 @@
 
+setvariables {
+    display: none ;
+}
+
+notificationdiv {
+    display: none;
+    position: fixed;
+    bottom: 2%;
+    left: 10% ;
+    width: auto;
+    text-align: center;
+    padding: 2px 5px ;
+    background-color: rgb(166, 174, 182);
+    border: solid 4px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    z-index: 15;
+    white-space: normal;
+    overflow: visible;
+
+  }
+
 #opaquebgone0 {
+    overflow: auto;
     position: absolute ;
     max-width: 100% ;
     max-height: 100% ;
-    height: 96% ;
-    width: 98% ;
-    margin: 1% ;
+    top: 10px ;
+    bottom: 10px ;
+    right: 10px ;
+    left: 10px ;
 }
 
-
-achievementsp1 {
+settingsb {
     position: absolute ;
-    background-image: url("artwork/achievementsicon.png");
-    background-size: 165% ;
-    background-position: 47% 52% ;
+    background-image: url("artwork/settingsicon.png");
+    background-size: cover ;
+    background-position: 50% 50% ;
     background-repeat: no-repeat ;
     width: 15% ;
     height: 15% ;
@@ -21,7 +43,50 @@ achievementsp1 {
     max-height: 50px ;
     z-index: 10;
     bottom: 1% ;
-    left: 1% ;
+    left: 15px ;
+}
+
+settingsb:hover {
+    background-color: rgba(45, 48, 56, 0.3);
+}
+
+settings {
+    display: none ;
+    position: absolute ;
+}
+
+#settings {
+    display: none;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 16px solid #497049;
+    object-fit: cover;
+    background-position: center ;
+    background-color: #f7d0d2;
+    width: 80%;
+    height: 80%;
+    top: 8%;
+    bottom: 12%;
+    left: 10%;
+    right: 10%;
+}
+
+
+
+achievementsp1 {
+    position: absolute ;
+    background-image: url("artwork/achievementsicon.png");
+    background-position: 50% 50% ;
+    background-size: cover ;
+    background-repeat: no-repeat ;
+    width: 15% ;
+    height: 15% ;
+    max-width: 50px ;
+    max-height: 50px ;
+    z-index: 10;
+    bottom: 1% ;
+    left: 75px ;
 }
 
 achievementsp1:hover {
@@ -58,6 +123,28 @@ achievementsp1:hover {
     right: 10%;
 }
 
+category {
+    text-align: center;
+    display:block;
+    margin-left: 5% ;
+    margin-right: 5% ;
+    height:auto;
+    margin-top: 2%;
+    background-color: #b9bac2e7;
+    padding: 10px ;
+}
+
+row {
+    z-index: 10;
+    display: block;
+    max-width: 100%;
+    top: 0%;
+    left: 0%;
+    right: 0%;
+    text-align: center;
+    height: auto;
+    margin-top: 0.5%;
+}
 
 p1field {
     background-color:rgb(87, 74, 49);
@@ -81,9 +168,9 @@ p1left {
     overflow: auto;
     display: block ;
     position: absolute ;
-    width: 30%;
+    width: 35%;
     left: 1% ;
-    bottom: 1% ;
+    bottom: 65px ;
     top: 36px ;
     background-repeat: no-repeat;
     background-size: cover;
@@ -349,19 +436,15 @@ right {
 }
 
 .fadein {
-    width:200px;
-    height: 200px;
-    -webkit-animation: fadein 2s linear forwards;
-    animation: fadein 2s linear forwards;
+    -webkit-animation: fadein 0.5s linear forwards;
+    animation: fadein 0.5s linear forwards;
     opacity: 0;
     display: block;
 }
   
 .fadeout {
-    width:200px;
-    height: 200px;
-    -webkit-animation: fadeout 2s linear forwards;
-    animation: fadeout 2s linear forwards;
+    -webkit-animation: fadeout 0.5s linear forwards;
+    animation: fadeout 0.5s linear forwards;
     opacity: 1;
     display: block;
 }
