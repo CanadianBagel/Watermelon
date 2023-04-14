@@ -1,4 +1,20 @@
 
+
+
+
+
+
+
+
+p1completediv {
+    display: none ;
+    position: absolute ;
+    margin-top: 10% ;
+    left: 10px ;
+    right: 10px ;
+    text-align: center;
+}
+
 setvariables {
     display: none ;
 }
