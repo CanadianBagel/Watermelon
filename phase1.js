@@ -43,11 +43,19 @@ setInterval(() => {
 
 function p1checkwatermelonmilestone0() {
     if (watermelon.gte(10)) {
-      var div = document.getElementById("p1melonharvestbotdiv")
-      div.style.display = "block"
-      clearInterval(p1milestonecheck0intervalId)
+        var div = document.getElementById("p1melonharvestbotdiv")
+        div.style.display = "block"
+
+        if(p1botnum == 9){
+            document.getElementById("p1botpurchasediv").style.display = "none"
+        }
+        if(p1mbt == 250){
+            document.getElementById("p1botupgradediv").style.display = "none"
+        }
+
+        clearInterval(p1milestonecheck0intervalId)
     }
-  }
+}
   
 const p1milestonecheck0intervalId = setInterval(p1checkwatermelonmilestone0, 1000)
 
@@ -69,7 +77,7 @@ function p1checkwatermelonmilestone1() {
 const p1milestonecheck1intervalId = setInterval(p1checkwatermelonmilestone1, 1000)
 
 function p1checkcompletion() {
-    if(watermelon.gte(1000) && p1botnum == 9 && p1mbt.eq(250) && p1gt.eq(1000)) {
+    if(watermelon!== undefined && watermelon!== null && watermelon.gte(1000) && p1botnum == 9 && p1mbt.eq(250) && p1gt.eq(1000)) {
       document.getElementById("p1completediv").style.display = "block"
       clearInterval(p1checkcompletionintervalId)
     }
@@ -80,21 +88,21 @@ const p1checkcompletionintervalId = setInterval(p1checkcompletion, 1000)
 p1botprice = p1botnum * 10 + 10
             
 function p1botpurchase(){
-  if(watermelon.gte(p1botprice) && ExpantaNum.lt(p1botnum,9)){
-    watermelon = watermelon.sub(p1botprice)
-    p1botnum += 1
-    p1botprice = p1botnum * 10 + 10
-    document.getElementById("watermelon").innerHTML = watermelon.toString()
-    document.getElementById("p1botnum").innerHTML = p1botnum.toString()
-    document.getElementById("p1botprice").innerHTML = p1botprice.toString()
-    document.getElementById("p1botplural").innerHTML = p1botnum === 1 ? "Watermelon Harvest Bot" : "Watermelon Harvest Bots"
-    p1stopbotharvest()
-    p1startbotharvest()
-    if(p1botnum === 9){
-      var p1botpurchasediv = document.getElementById("p1botpurchasediv")
-      p1botpurchasediv.style.display = "none"
-    }
-  } 
+    if(watermelon.gte(p1botprice) && ExpantaNum.lt(p1botnum,9)){
+        watermelon = watermelon.sub(p1botprice)
+        p1botnum += 1
+        p1botprice = p1botnum * 10 + 10
+        document.getElementById("watermelon").innerHTML = watermelon.toString()
+        document.getElementById("p1botnum").innerHTML = p1botnum.toString()
+        document.getElementById("p1botprice").innerHTML = p1botprice.toString()
+        document.getElementById("p1botplural").innerHTML = p1botnum === 1 ? "Watermelon Harvest Bot" : "Watermelon Harvest Bots"
+        p1stopbotharvest()
+        p1startbotharvest()
+        if(p1botnum === 9){
+            var p1botpurchasediv = document.getElementById("p1botpurchasediv")
+            p1botpurchasediv.style.display = "none"
+        }
+    } 
 }
 
 let botharvestintervalid;
